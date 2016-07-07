@@ -1,5 +1,5 @@
 var wordlist = [],
-		targetWord = ''
+		targetWord = '',
 		guesses = [],
 		maxLives = 6;
 
@@ -72,15 +72,12 @@ function addGuess() {
 
 function endGameDialog(isWinner) {
 	if (isWinner) {
-		$('#endGameDialogTitle').html('You have gained the Iron Throne');
-		$('#endGameDialogContent').html('You guessed ' + targetWord + ' in ' + guesses.length + ' attempts');
+		alert("You have gained the Iron Throne");
 	} else {
-		$('#endGameDialogTitle').html('You have lost the iron throne');
-		$('#endGameDialogContent').html('What is dead may never die! The word was ' + targetWord);
+		alert("The Lannisters have taken the throne from you!");
 
 	}
 
-	$('#endGameDialog').modal('toggle');
 }
 
 function reviewLives() {
@@ -127,13 +124,15 @@ function update() {
 
 
 
-// $(document).ready(function() {
-//     loadWordlist();
+// window.onload = function() {
+// 	loadWordlist();
 //     drawWord();
 //     drawGuesses();
 //     $('#guess').attr('onkeyup','update();');
 
-// });
+// };
+
+
 
 
 
