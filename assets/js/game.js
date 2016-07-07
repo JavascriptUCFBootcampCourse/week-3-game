@@ -1,4 +1,4 @@
-var wordlist = [],
+var wordlist = ['Daenerys','Jon', 'Arya', 'Gregor','Melisandre','Sandor', 'Caetlyn']
 		targetWord = '',
 		guesses = [],
 		maxLives = 6;
@@ -8,17 +8,17 @@ function setImage(number) {
 	$('#hangman_img').removeAttr("class").addClass("image" + number);
 }
 
-function loadWordlist() {
-	var  word = '';
-	$.ajax({
-		url:'assets/wordlist.json',
-		async: true
-	}).done(function(data) {
-		for (word in data) {
-			wordlist.push(data[word]);
-		}
-	}, 'json');
-}
+// function loadWordlist() {
+// 	var  word = '';
+// 	$.ajax({
+// 		url:'assets/wordlist.json',
+// 		async: true
+// 	}).done(function(data) {
+// 		for (word in data) {
+// 			wordlist.push(data[word]);
+// 		}
+// 	}, 'json');
+// }
 
 function newWord() {
 	targetWord = wordlist[Math.floor(Math.random() * wordlist.length)];
@@ -29,7 +29,7 @@ function obfuscateWord() {
 
 	for (var i=0; i < targetWord.length; i++) {
 		if (guesses.indexOf(targetWord[i].toLowerCase(), 0) == -1) {
-			obWord += '_';
+			obWord += ' _ ';
 		} else {
 			obWord += targetWord[i];
 		}
@@ -68,13 +68,15 @@ function addGuess() {
 		guesses.push($('#guess').val().toLowerCase());
 
 	}
+
+	$('#guess').val('');
 }
 
 function endGameDialog(isWinner) {
 	if (isWinner) {
 		alert("You have gained the Iron Throne");
 	} else {
-		alert("The Lannisters have taken the throne from you!");
+		alert("The Iron throne has been taken from you!");
 
 	}
 
@@ -113,24 +115,24 @@ function resetGame() {
 	newWord();
 }
 
+
 function update() {
 	addGuess();
 	cleanGuess();
 	drawWord();
 	drawGuesses();
+	reviewLives();
 	checkIfWon();
 
 }
 
 
 
-// window.onload = function() {
-// 	loadWordlist();
-//     drawWord();
-//     drawGuesses();
-//     $('#guess').attr('onkeyup','update();');
-
-// };
+$(document).ready(function() {
+    drawWord();
+    drawGuesses();
+    $('#guess').attr('onkeyup', 'update();');
+});
 
 
 
